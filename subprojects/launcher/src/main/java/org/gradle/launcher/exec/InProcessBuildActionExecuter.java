@@ -19,6 +19,7 @@ package org.gradle.launcher.exec;
 import org.gradle.initialization.BuildRequestContext;
 import org.gradle.initialization.DefaultGradleLauncher;
 import org.gradle.initialization.GradleLauncherFactory;
+import org.gradle.internal.filewatch.FileWatcherFactory;
 import org.gradle.internal.invocation.BuildAction;
 import org.gradle.internal.invocation.BuildActionRunner;
 import org.gradle.internal.invocation.BuildController;
@@ -26,10 +27,12 @@ import org.gradle.internal.invocation.BuildController;
 public class InProcessBuildActionExecuter implements BuildActionExecuter<BuildActionParameters> {
     private final GradleLauncherFactory gradleLauncherFactory;
     private final BuildActionRunner buildActionRunner;
+    private final FileWatcherFactory fileWatcherFactory;
 
-    public InProcessBuildActionExecuter(GradleLauncherFactory gradleLauncherFactory, BuildActionRunner buildActionRunner) {
+    public InProcessBuildActionExecuter(GradleLauncherFactory gradleLauncherFactory, BuildActionRunner buildActionRunner, FileWatcherFactory fileWatcherFactory) {
         this.gradleLauncherFactory = gradleLauncherFactory;
         this.buildActionRunner = buildActionRunner;
+        this.fileWatcherFactory = fileWatcherFactory;
     }
 
     public Object execute(BuildAction action, BuildRequestContext buildRequestContext, BuildActionParameters actionParameters) {
@@ -48,7 +51,7 @@ public class InProcessBuildActionExecuter implements BuildActionExecuter<BuildAc
     }
 
     private BuildController createWatchModeBuildController(BuildAction action, BuildRequestContext buildRequestContext, BuildActionParameters actionParameters) {
-        return new WatchModeBuildController(gradleLauncherFactory, action.getStartParameter(), buildRequestContext);
+        return new WatchModeBuildController(gradleLauncherFactory, action.getStartParameter(), buildRequestContext, fileWatcherFactory);
     }
 
     private BuildController createDefaultBuildController(BuildAction action, BuildRequestContext buildRequestContext, BuildActionParameters actionParameters) {
