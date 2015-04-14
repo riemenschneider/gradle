@@ -25,7 +25,7 @@ import org.gradle.launcher.watch.WatchModeParameters;
 
 public class WatchModeCommandLineConverter extends AbstractCommandLineConverter<WatchModeParameters> {
 
-    private static final String WATCH = "watch";
+    private static final String WATCH = "watchmode";
 
     public WatchModeParameters convert(ParsedCommandLine args, WatchModeParameters target) throws CommandLineArgumentException {
         if (args.hasOption(WATCH)) {
