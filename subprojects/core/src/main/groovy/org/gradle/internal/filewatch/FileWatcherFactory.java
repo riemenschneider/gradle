@@ -19,6 +19,6 @@ package org.gradle.internal.filewatch;
 /**
  * Entry point for creating a new stateful {@link FileWatcher}
  */
-public interface FileWatchService {
+public interface FileWatcherFactory {
     FileWatcher createFileWatcher();
 }

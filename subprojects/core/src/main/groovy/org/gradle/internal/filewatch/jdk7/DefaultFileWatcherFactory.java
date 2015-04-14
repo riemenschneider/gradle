@@ -17,7 +17,7 @@
 package org.gradle.internal.filewatch.jdk7;
 
 import org.gradle.internal.concurrent.Stoppable;
-import org.gradle.internal.filewatch.FileWatchService;
+import org.gradle.internal.filewatch.FileWatcherFactory;
 import org.gradle.internal.filewatch.FileWatcher;
 
 import java.util.concurrent.ExecutorService;
@@ -26,9 +26,9 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Implementation of {@link FileWatchService}
+ * Implementation of {@link FileWatcherFactory}
  */
-public class DefaultFileWatchService implements FileWatchService, Stoppable {
+public class DefaultFileWatcherFactory implements FileWatcherFactory, Stoppable {
     private ExecutorService executor = createExecutor();
 
     protected ExecutorService createExecutor() {

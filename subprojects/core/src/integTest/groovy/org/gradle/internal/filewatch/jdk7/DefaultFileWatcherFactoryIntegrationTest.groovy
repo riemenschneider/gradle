@@ -30,12 +30,12 @@ import org.junit.Rule
 import spock.lang.Specification
 
 /**
- * integration tests for {@link DefaultFileWatchService}
+ * integration tests for {@link DefaultFileWatcherFactory}
  */
-class DefaultFileWatchServiceIntegrationTest extends Specification {
+class DefaultFileWatcherFactoryIntegrationTest extends Specification {
     @Rule
     public final TestNameTestDirectoryProvider testDir = new TestNameTestDirectoryProvider();
-    DefaultFileWatchService fileWatchService
+    DefaultFileWatcherFactory fileWatcherFactory
     File testDir
     long waitForEventsMillis = OperatingSystem.current().isMacOsX() ? 3100L : 1100L
     FileWatcher fileWatcher
@@ -43,15 +43,15 @@ class DefaultFileWatchServiceIntegrationTest extends Specification {
 
     void setup() {
         NativeServicesTestFixture.initialize()
-        fileWatchService = new DefaultFileWatchService()
-        fileWatcher = fileWatchService.createFileWatcher()
+        fileWatcherFactory = new DefaultFileWatcherFactory()
+        fileWatcher = fileWatcherFactory.createFileWatcher()
         fileWatchInputs = new DefaultFileWatchInputs()
         fileWatchInputs.watch(new DirectoryFileTree(testDir.getTestDirectory()))
     }
 
     void cleanup() {
         fileWatcher.stop()
-        fileWatchService.stop()
+        fileWatcherFactory.stop()
     }
 
     def "watch service should notify of new files"() {
