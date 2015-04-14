@@ -27,6 +27,8 @@ import org.gradle.internal.filewatch.FileWatchEvent;
 import org.gradle.internal.filewatch.FileWatchListener;
 import org.gradle.internal.filewatch.FileWatcher;
 import org.gradle.internal.os.OperatingSystem;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -45,6 +47,7 @@ import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
  * Created by lari on 13/04/15.
  */
 class FileWatcherExecutor implements Runnable {
+    private static final Logger LOGGER = LoggerFactory.getLogger(FileWatcherExecutor.class);
     // http://stackoverflow.com/a/18362404
     // make watch sensitivity as 2 seconds on MacOSX, polls every 2 seconds for changes. Default is 10 seconds.
     static final WatchEvent.Modifier[] WATCH_MODIFIERS = new WatchEvent.Modifier[]{SensitivityWatchEventModifier.HIGH};
@@ -157,12 +160,14 @@ class FileWatcherExecutor implements Runnable {
                                         containsFiles = registerSubTree(watchService, fullPath, watchedTree);
                                     } catch (IOException e) {
                                         // ignore
+                                        LOGGER.warn("IOException in registering sub tree " + fullPath.toString(), e);
                                     }
                                 } else {
                                     try {
                                         containsFiles = doesTreeContainFiles(fullPath);
                                     } catch (IOException e) {
                                         // ignore
+                                        LOGGER.warn("IOException in scanning sub tree for files " + fullPath.toString(), e);
                                     }
                                 }
                                 if(containsFiles) {
@@ -181,7 +186,7 @@ class FileWatcherExecutor implements Runnable {
                         pendingNotification = true;
                     }
                 } else {
-                    System.err.println("unmapped path " + fullPath.toString());
+                    LOGGER.warn("WatchEvent received on unmapped path " + fullPath.toString());
                 }
             }
         }
