@@ -84,6 +84,7 @@ public class WatchModeBuildController extends AbstractBuildController {
             fileWatcher.watch(taskInputsListener.inputs, listener);
             System.out.println("-------- WAITING FOR CHANGES -------");
             listener.waitForChanges(buildRequestContext.getCancellationToken());
+            fileWatcher.stop();
         }
         return gradle;
     }
