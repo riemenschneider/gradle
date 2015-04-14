@@ -18,6 +18,7 @@ package org.gradle.internal.filewatch.jdk7
 
 import org.gradle.api.internal.file.collections.DirectoryFileTree
 import org.gradle.api.tasks.util.PatternSet
+import org.gradle.internal.concurrent.DefaultExecutorFactory
 import org.gradle.internal.filewatch.DefaultFileWatchInputs
 import org.gradle.internal.filewatch.FileWatchInputs
 import org.gradle.internal.filewatch.FileWatchListener
@@ -43,7 +44,7 @@ class DefaultFileWatcherFactoryIntegrationTest extends Specification {
 
     void setup() {
         NativeServicesTestFixture.initialize()
-        fileWatcherFactory = new DefaultFileWatcherFactory()
+        fileWatcherFactory = new DefaultFileWatcherFactory(new DefaultExecutorFactory())
         fileWatcher = fileWatcherFactory.createFileWatcher()
         fileWatchInputs = new DefaultFileWatchInputs()
         fileWatchInputs.watch(new DirectoryFileTree(testDir.getTestDirectory()))

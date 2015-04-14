@@ -16,31 +16,21 @@
 
 package org.gradle.internal.filewatch.jdk7;
 
+import org.gradle.internal.concurrent.ExecutorFactory;
 import org.gradle.internal.concurrent.Stoppable;
-import org.gradle.internal.filewatch.FileWatcherFactory;
 import org.gradle.internal.filewatch.FileWatcher;
+import org.gradle.internal.filewatch.FileWatcherFactory;
 
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Implementation of {@link FileWatcherFactory}
  */
 public class DefaultFileWatcherFactory implements FileWatcherFactory, Stoppable {
-    private ExecutorService executor = createExecutor();
+    private final ExecutorService executor;
 
-    protected ExecutorService createExecutor() {
-        return Executors.unconfigurableExecutorService(Executors.newCachedThreadPool(new ThreadFactory() {
-            private final String namePrefix = "filewatcher-thread-";
-            private final AtomicInteger threadNumber = new AtomicInteger(1);
-
-            @Override
-            public Thread newThread(Runnable r) {
-                return new Thread(r, namePrefix + threadNumber.getAndIncrement());
-            }
-        }));
+    public DefaultFileWatcherFactory(ExecutorFactory executorFactory) {
+        this.executor = executorFactory.create("filewatcher");
     }
 
     @Override
