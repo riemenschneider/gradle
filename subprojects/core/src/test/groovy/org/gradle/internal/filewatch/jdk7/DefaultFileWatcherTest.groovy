@@ -26,9 +26,6 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.Future
 import java.util.concurrent.TimeUnit
 
-/**
- * Created by lari on 12/04/15.
- */
 class DefaultFileWatcherTest extends Specification {
 
     def "test watch and stop interaction with DefaultFileWatcher"() {

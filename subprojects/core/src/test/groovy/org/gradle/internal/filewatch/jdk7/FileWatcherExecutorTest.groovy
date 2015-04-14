@@ -28,9 +28,6 @@ import java.nio.file.spi.FileSystemProvider
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.atomic.AtomicBoolean
 
-/**
- * Created by lari on 13/04/15.
- */
 class FileWatcherExecutorTest extends Specification {
     def fileWatcher
     def runningFlag

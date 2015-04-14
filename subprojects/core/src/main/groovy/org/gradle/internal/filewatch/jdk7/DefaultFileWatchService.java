@@ -26,7 +26,7 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Created by lari on 13/04/15.
+ * Implementation of {@link FileWatchService}
  */
 public class DefaultFileWatchService implements FileWatchService, Stoppable {
     private ExecutorService executor = createExecutor();

@@ -30,7 +30,7 @@ import org.junit.Rule
 import spock.lang.Specification
 
 /**
- * Created by lari on 13/04/15.
+ * integration tests for {@link DefaultFileWatchService}
  */
 class DefaultFileWatchServiceIntegrationTest extends Specification {
     @Rule

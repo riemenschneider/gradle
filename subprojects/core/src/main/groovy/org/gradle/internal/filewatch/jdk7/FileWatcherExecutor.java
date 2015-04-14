@@ -44,7 +44,7 @@ import static java.nio.file.StandardWatchEventKinds.ENTRY_CREATE;
 import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
 
 /**
- * Created by lari on 13/04/15.
+ * Java 7 {@link WatchService} based implementation for monitoring file system changes, used by {@link DefaultFileWatcher}
  */
 class FileWatcherExecutor implements Runnable {
     private static final Logger LOGGER = LoggerFactory.getLogger(FileWatcherExecutor.class);

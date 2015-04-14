@@ -24,7 +24,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
- * Created by lari on 13/04/15.
+ * Implementation of {@link FileWatchInputs}
  */
 public class DefaultFileWatchInputs implements FileWatchInputs {
     Set<DirectoryTree> directories = new LinkedHashSet<DirectoryTree>();
